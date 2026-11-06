@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   test: {
-    env: { TEMP: testTmpDir, TMP: testTmpDir, TMPDIR: testTmpDir },
+    env: { TEMP: testTmpDir, TMP: testTmpDir, TMPDIR: testTmpDir, TZ: "UTC" },
     environment: "node",
     globals: true,
     include: [

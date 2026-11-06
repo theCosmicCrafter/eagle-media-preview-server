@@ -2,6 +2,7 @@ import { test } from "vitest";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import { JSDOM } from "jsdom";
 
@@ -279,7 +280,7 @@ test("plugin password drafts do not blank the management UI", async () => {
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -369,7 +370,7 @@ test("plugin port input persists after explicit settings save", async () => {
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -460,7 +461,7 @@ test("plugin saves a custom domain and uses the resulting URL for display, QR, c
   const bundle = await esbuild({
     bundle: true,
     define: { "process.env.NODE_ENV": JSON.stringify("test") },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife", platform: "browser", write: false,
   });
   const dom = new JSDOM('<!doctype html><div id="root"></div>', {
@@ -566,7 +567,7 @@ test("plugin asks before starting public network without password protection", a
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -659,7 +660,7 @@ test("plugin asks before starting public network with HTTP password protection",
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -755,7 +756,7 @@ test("plugin saves public network without asking while stopped", async () => {
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -844,7 +845,7 @@ test("plugin saves public network with HTTP password protection without asking w
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -934,7 +935,7 @@ test("plugin confirms with an Eagle message box before removing a user", async (
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -1029,7 +1030,7 @@ test("the Role menu offers Editor + Upload, and choosing another role clears the
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -1105,7 +1106,7 @@ test("plugin settings inputs are disabled while the server is running", async ()
     define: {
       "process.env.NODE_ENV": JSON.stringify("test"),
     },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife",
     platform: "browser",
     write: false,
@@ -1513,7 +1514,7 @@ test("plugin limits a shared library to selected users and follows user renames"
   const bundle = await esbuild({
     bundle: true,
     define: { "process.env.NODE_ENV": JSON.stringify("test") },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife", platform: "browser", write: false,
   });
   const dom = new JSDOM('<!doctype html><div id="root"></div>', {
@@ -1617,7 +1618,7 @@ test("plugin keeps library access with the account while another account's name 
   const bundle = await esbuild({
     bundle: true,
     define: { "process.env.NODE_ENV": JSON.stringify("test") },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife", platform: "browser", write: false,
   });
   const dom = new JSDOM('<!doctype html><div id="root"></div>', {
@@ -1680,7 +1681,7 @@ test("activity search asks the log once typing pauses and ignores an older answe
   const bundle = await esbuild({
     bundle: true,
     define: { "process.env.NODE_ENV": JSON.stringify("test") },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife", platform: "browser", write: false,
   });
   const dom = new JSDOM('<!doctype html><div id="root"></div>', {
@@ -1808,7 +1809,7 @@ test("plugin saves shared libraries with the settings and reacts to Eagle librar
   const bundle = await esbuild({
     bundle: true,
     define: { "process.env.NODE_ENV": JSON.stringify("test") },
-    entryPoints: [new URL("./app.tsx", import.meta.url).pathname],
+    entryPoints: [fileURLToPath(new URL("./app.tsx", import.meta.url))],
     format: "iife", platform: "browser", write: false,
   });
   const dom = new JSDOM('<!doctype html><div id="root"></div>', {

@@ -8,7 +8,7 @@ import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { PassThrough } from "node:stream";
 import { createViewerServer, resolveDefaultPublicDir, sha256 } from "./viewerServer.js";
 
@@ -1782,10 +1782,13 @@ test("createViewerServer returns 413 for oversized JSON request bodies", async (
 });
 
 test("resolveDefaultPublicDir prefers Vite output when running from source", () => {
-  const existingDist = (path: string) => path === "/repo/dist/public";
-  assert.equal(resolveDefaultPublicDir("/repo/plugin/service", existingDist), "/repo/dist/public");
-  assert.equal(resolveDefaultPublicDir("/repo/dist/plugin/service", existingDist), "/repo/dist/public");
-  assert.equal(resolveDefaultPublicDir("/repo/plugin/service", () => false), "/repo/public");
+  const serviceDir = resolve("/repo/plugin/service");
+  const distServiceDir = resolve("/repo/dist/plugin/service");
+  const distPublic = resolve("/repo/dist/public");
+  const existingDist = (path: string) => path === distPublic;
+  assert.equal(resolveDefaultPublicDir(serviceDir, existingDist), distPublic);
+  assert.equal(resolveDefaultPublicDir(distServiceDir, existingDist), distPublic);
+  assert.equal(resolveDefaultPublicDir(serviceDir, () => false), resolve("/repo/public"));
 });
 
 test("serveStatic rejects sibling paths that only share the public directory prefix", async () => {

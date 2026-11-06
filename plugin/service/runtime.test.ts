@@ -173,8 +173,10 @@ test("generated settings store creates and persists a session secret", async () 
   assert.equal(raw.settingsVersion, 2);
   assert.equal(raw.sessionDurationDays, 7);
   assert.equal(raw.sessionSecret, loaded.sessionSecret);
-  assert.equal((await stat(dir)).mode & 0o777, 0o700);
-  assert.equal((await stat(filePath)).mode & 0o777, 0o600);
+  if (process.platform !== "win32") {
+    assert.equal((await stat(dir)).mode & 0o777, 0o700);
+    assert.equal((await stat(filePath)).mode & 0o777, 0o600);
+  }
 
   const saved = await store.save({ autoStart: true });
   assert.equal(saved.sessionSecret, loaded.sessionSecret);
